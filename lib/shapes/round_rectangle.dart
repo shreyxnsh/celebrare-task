@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 
+class RoundRectangleClip extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) => Path()
+    ..addRRect(
+      RRect.fromRectXY(
+          Rect.fromCenter(center: Offset(size.width / 2, size.height / 2), width: size.width, height: size.height * 0.6), 5, 5),
+    );
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => true;
+}
+
 class RoundRectangle extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    // TODO: implement paint
-
     Paint paint = Paint()
       ..color = Colors.black
       ..strokeWidth = 5
-      ..style = PaintingStyle.fill
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 4);
-    print(size);
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2)
+      ..style = PaintingStyle.fill;
     canvas.drawRRect(
         RRect.fromRectXY(
-            Rect.fromCenter(
-                center: Offset(size.width / 2, size.height / 2),
-                width: size.width * 0.8,
-                height: size.height * 0.8),
-            20,
-            20),
+            Rect.fromCenter(center: Offset(size.width / 2, size.height / 2), width: size.width, height: size.height * 0.6), 5, 5),
         paint);
   }
 
